@@ -1,0 +1,18 @@
+{
+  "name": "@dasmeta/event-manager-deployer",
+  "version": "1.0.0",
+  "description": "Event manager",
+  "main": "index.js",
+  "author": "Gevorg Margaryan <gevorgmargaryan@yahoo.com> (https://tutorbot.io)",
+  "repository": "git@github.com:dasmeta/event-manager-platform-helper.git",
+  "license": "Apache-2.0",
+  "scripts": {
+    "prettier": "prettier --write '**/*.js'"
+  },
+  "dependencies": {
+    "mongodb": "^3.3.2"
+  },
+  "devDependencies": {
+    "prettier": "^1.18.2"
+  }
+}
