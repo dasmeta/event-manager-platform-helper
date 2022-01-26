@@ -1,7 +1,7 @@
 {
-  "name": "@dasmeta/event-manager-deployer",
+  "name": "@dasmeta/event-manager-platform-helper",
   "version": "1.0.0",
-  "description": "Event manager",
+  "description": "Event platform helper",
   "main": "index.js",
   "author": "Gevorg Margaryan <gevorgmargaryan@yahoo.com> (https://tutorbot.io)",
   "repository": "git@github.com:dasmeta/event-manager-platform-helper.git",
