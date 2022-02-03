@@ -4,7 +4,9 @@ const { getPlatformAdapters } = require("../adapter/factory");
 const wrapHandler = (handler, platform = 'gcf') => {
     const { getEvent, getTopic, getFunctionName, getResponse } = getPlatformAdapters(platform);
 
-    return async (...allContext) => {
+    // workaround of fn.length issue with ... operator
+    return async (first, ...rest) => {
+        const allContext = [first, ...rest]
         const event = getEvent(allContext);
         const topic = getTopic(allContext);
         const functionName = getFunctionName(allContext);
