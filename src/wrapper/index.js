@@ -11,7 +11,6 @@ const wrapHandler = (handler, platform = 'gcf') => {
         const topic = getTopic(allContext);
         const functionName = getFunctionName(allContext);
 
-        // @todo check eventId, traceId
         const { eventId, traceId, data, dataSource, subscription = "" } = event;
 
         const eventInfo = {
@@ -22,7 +21,6 @@ const wrapHandler = (handler, platform = 'gcf') => {
             traceId,
         };
 
-        // @todo check abbreviating
         if (subscription && subscription !== functionName) {
             console.log("Skip event because the handler is another", eventInfo);
             return;

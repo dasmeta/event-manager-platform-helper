@@ -19,7 +19,9 @@ const getTopic = (allContext) => {
  * @returns {string}
  */
 const getFunctionName = (allContext) => {
-    return allContext[0].request.get('x-fission-function-name');
+    const deployedName = allContext[0].request.get('x-fission-function-name');
+    // 0-is separator
+    return deployedName.replace('0', '_')
 }
 
 /**
