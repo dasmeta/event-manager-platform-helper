@@ -22,8 +22,8 @@ const getConnection = async (alias, options) => {
     }
     connectionsWaiting.set(alias, true);
 
-    const { username, password, host, port, db } = options;
-    const url = `mongodb://${username || password ? `${username}:${password}@` : ""}${host}:${port}/${db}`;
+    const { username, password, host, port, db, authenticationDatabase } = options;
+    const url = `mongodb://${username || password ? `${username}:${password}@` : ""}${host}:${port}/${db}?authSource=${authenticationDatabase}`;
 
     const connection = await MongoClient.connect(url, {
         useNewUrlParser: true,
@@ -42,7 +42,9 @@ const getOptions = alias => {
     const host = process.env[`MONGODB_${ALIAS}_HOST`] || "localhost";
     const port = process.env[`MONGODB_${ALIAS}_PORT`] || 27017;
     const db = process.env[`MONGODB_${ALIAS}_DB`] || alias;
-    return { username, password, host, port, db };
+    const authenticationDatabase = process.env[`MONGODB_${ALIAS}_AUTHENTICATION_DATABASE`] || 'admin';
+
+    return { username, password, host, port, db, authenticationDatabase };
 };
 
 const getDb = async alias => {
