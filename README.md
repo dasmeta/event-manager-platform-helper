@@ -8,11 +8,7 @@
 ```
 DEPLOYER_PLATFORM=gcf
 
-MONGODB_EVENT_USERNAME=username
-MONGODB_EVENT_PASSWORD=password
-MONGODB_EVENT_HOST=localhost
-MONGODB_EVENT_PORT=27017
-MONGODB_EVENT_DB=event
+DATABASE_URL_EVENT = mongodb://username:password@localhost:27017/event?authSource=admin
 ```
 ## Usage
 ### Provide environment variable

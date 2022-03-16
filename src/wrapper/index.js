@@ -4,12 +4,13 @@ const { getPlatformAdapters } = require("../adapter/factory");
 const wrapHandler = (handler, platform = 'gcf') => {
     const { getEvent, getTopic, getFunctionName, getResponse } = getPlatformAdapters(platform);
 
-    return async (...allContext) => {
+    // workaround of fn.length issue with ... operator
+    return async (first, ...rest) => {
+        const allContext = [first, ...rest]
         const event = getEvent(allContext);
         const topic = getTopic(allContext);
         const functionName = getFunctionName(allContext);
 
-        // @todo check eventId, traceId
         const { eventId, traceId, data, dataSource, subscription = "" } = event;
 
         const eventInfo = {
@@ -20,7 +21,6 @@ const wrapHandler = (handler, platform = 'gcf') => {
             traceId,
         };
 
-        // @todo check abbreviating
         if (subscription && subscription !== functionName) {
             console.log("Skip event because the handler is another", eventInfo);
             return;
