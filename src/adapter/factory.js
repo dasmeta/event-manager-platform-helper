@@ -1,6 +1,7 @@
 const availablePlatforms = [
     'fission',
-    'gcf'
+    'gcf',
+    'aws'
 ];
 const getPlatformAdapters = (platform) => {
     if (! platform) {

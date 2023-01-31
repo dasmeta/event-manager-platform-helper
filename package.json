@@ -1,6 +1,6 @@
 {
   "name": "@dasmeta/event-manager-platform-helper",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Event platform helper",
   "main": "index.js",
   "author": "Gevorg Margaryan <gevorgmargaryan@yahoo.com> (https://tutorbot.io)",
@@ -10,6 +10,7 @@
     "prettier": "prettier --write '**/*.js'"
   },
   "dependencies": {
+    "@dasmeta/event-manager-node-api": "^2.2.3",
     "mongodb": "^3.3.2"
   },
   "devDependencies": {
