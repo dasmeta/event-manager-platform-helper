@@ -9,8 +9,6 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-*.lock
-
 # Dependency directories
 node_modules/
 

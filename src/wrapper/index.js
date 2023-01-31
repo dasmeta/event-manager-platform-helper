@@ -1,4 +1,4 @@
-const { recordStart, recordSuccess, recordFailure, recordPreconditionFailure, hasReachedMaxAttempts } = require("../event-logger");
+const { EventSubscriptionApi } = require("@dasmeta/event-manager-node-api");
 const { getPlatformAdapters } = require("../adapter/factory");
 
 const wrapHandler = (handler, platform = 'gcf') => {
@@ -26,24 +26,26 @@ const wrapHandler = (handler, platform = 'gcf') => {
             return;
         }
 
-        await recordStart(eventInfo);
+        const api = new EventSubscriptionApi({ basePath: process.env.EVENT_MANAGER_BACKEND_HOST });
+
+        await api.eventSubscriptionsRecordStartPost(eventInfo);
 
         let response;
         try {
             response = await handler(data, { topic, subscription, traceId, dataSource });
 
-            await recordSuccess(eventInfo);
+            await api.eventSubscriptionsRecordSuccessPost(eventInfo);
         } catch (error) {
             console.error("Error", error, { eventInfo, data, dataSource });
 
             if (error.message.includes("PreconditionFailedError")) {
-                if ((await hasReachedMaxAttempts({ ...eventInfo }))) {
-                    await recordFailure({ ...eventInfo, error });
+                if ((await api.eventSubscriptionsHasReachedMaxAttemptsGet(topic, subscription, eventId, eventInfo.maxAttempts))) {
+                    await api.eventSubscriptionsRecordFailurePost({ ...eventInfo, error });
                     throw error;
                 }
-                await recordPreconditionFailure({ ...eventInfo });
+                await api.eventSubscriptionsRecordPreconditionFailurePost({ ...eventInfo });
             } else {
-                await recordFailure({ ...eventInfo, error });
+                await api.eventSubscriptionsRecordFailurePost({ ...eventInfo, error });
                 throw error;
             }
         }
