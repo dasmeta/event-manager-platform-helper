@@ -40,12 +40,12 @@ const wrapHandler = (handler, platform = 'gcf') => {
 
             if (error.message.includes("PreconditionFailedError")) {
                 if ((await api.eventSubscriptionsHasReachedMaxAttemptsGet(topic, subscription, eventId, eventInfo.maxAttempts))) {
-                    await api.eventSubscriptionsRecordFailurePost({ ...eventInfo, error });
+                    await api.eventSubscriptionsRecordFailurePost({ ...eventInfo, error: { stack: error.stack, message: error.message } });
                     throw error;
                 }
                 await api.eventSubscriptionsRecordPreconditionFailurePost({ ...eventInfo });
             } else {
-                await api.eventSubscriptionsRecordFailurePost({ ...eventInfo, error });
+                await api.eventSubscriptionsRecordFailurePost({ ...eventInfo, error: { stack: error.stack, message: error.message } });
                 throw error;
             }
         }
