@@ -23,7 +23,7 @@ const wrapHandler = (handler, platform = 'gcf') => {
 
         if (subscription && subscription !== functionName) {
             console.log("Skip event because the handler is another", eventInfo);
-            return;
+            return getResponse();
         }
 
         const api = new EventSubscriptionApi({ basePath: process.env.EVENT_MANAGER_BACKEND_HOST });

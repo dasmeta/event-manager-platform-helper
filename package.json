@@ -1,6 +1,6 @@
 {
   "name": "@dasmeta/event-manager-platform-helper",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "Event platform helper",
   "main": "index.js",
   "author": "Gevorg Margaryan <gevorgmargaryan@yahoo.com> (https://tutorbot.io)",
