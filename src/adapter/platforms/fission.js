@@ -11,8 +11,8 @@ const getEvent = (allContext) => {
  * @returns {string}
  */
 const getTopic = (allContext) => {
-    console.log('=== CONTEXT 4 ===');
-    console.log(JSON.stringify(allContext[0].request, null, 2));
+    console.log('=== CONTEXT 5 ===');
+    console.log(allContext[0].request);
     return allContext[0].request.get('keda-topic');
 }
 
